@@ -9,8 +9,8 @@
                         <div class="justify-content-center align-self-center">
                             <h2><strong>Makanan Yang Menarik </strong><br>Di Handphonemu</h2>
                             <p>Ayo segera pilih makan yang anda inginkan</p>
-                            <button class="btn btn-lg btn-success"><b-icon-arrow-right></b-icon-arrow-right>
-                                Pesan</button>
+                            <router-link class="btn btn-lg btn-success" to="/foods"><b-icon-arrow-right></b-icon-arrow-right>
+                                Pesan</router-link>
                         </div>
                     </div>
                 </div>
@@ -31,8 +31,6 @@
                         <div class="justify-content-center align-self-center">
                             <h2><strong>Makanan Yang Menarik </strong><br>Di Handphonemu</h2>
                             <p>Ayo segera pilih makan yang anda inginkan</p>
-                            <router-link to="/foods" class="btn btn-success float-right"><b-icon-eye></b-icon-eye> Lihat
-                                Semua</router-link>
                         </div>
                     </div>
                 </div>
