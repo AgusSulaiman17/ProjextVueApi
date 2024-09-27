@@ -22,7 +22,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h2>Keranjang <strong>Saya</strong></h2>
+                    <h2>Keranjang <strong>Saya</strong> <router-link to="/foods" class="btn btn-success float-right"><b-icon-search></b-icon-search> Pilih Makanan</router-link></h2>
                     <div class="table-responsive mt-3">
                         <table class="table">
                             <thead>
@@ -79,7 +79,7 @@
                             <input type="text" class="form-control" v-model="pesan.noMeja" placeholder="Masukan noMeja">
                         </div>
                         <button type="submit" class="btn btn-success mt-3 float-right" @click="checkout">
-                            <b-icon-cart></b-icon-cart> Pesan
+                            <b-icon-cart></b-icon-cart> Lakukan Pemesanan
                         </button>
                     </form>
                 </div>
@@ -109,7 +109,7 @@ export default {
         },
         hapusKeranjang(id) {
             axios
-                .delete(`http://localhost:3000/keranjangs/${id}`) // Menggunakan metode DELETE dan memperbaiki URL
+                .delete(`http://localhost:3000/keranjangs/${id}`)
                 .then(() => {
                     this.$toast.success("Pesanan berhasil dihapus", { // Menggunakan toast.success untuk notifikasi sukses
                         position: 'top-right',

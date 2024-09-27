@@ -69,7 +69,6 @@ export default {
     }
   },
   mounted() {
-    // Load semua produk saat halaman pertama kali dimuat
     axios
       .get("http://localhost:3000/products")
       .then((response) => {
@@ -81,5 +80,4 @@ export default {
 </script>
 
 <style scoped>
-/* Anda bisa menambahkan gaya khusus jika diperlukan */
 </style>
