@@ -121,32 +121,43 @@ export default {
                 })
                 .catch((error) => console.error(error));
         },
-        checkout() {
+        async checkout() {
+            // Mengecek apakah nama dan nomor meja sudah diisi
             if (this.pesan.nama && this.pesan.noMeja) {
+                // Menyimpan keranjang ke dalam pesan
                 this.pesan.keranjangs = this.keranjangs;
-                axios
-                    .post("http://localhost:3000/pesanans", this.pesan)
-                    .then(() => {
 
-                        this.keranjangs.map((item) => {
-                            return axios
-                                .delete(`http://localhost:3000/keranjangs/${item.id}`)
-                                .then(() => {
-                                    console.log(`Item dengan id: ${item.id} berhasil dihapus`);
-                                })
-                                .catch((error) => {
-                                    console.error(`Error menghapus item dengan id: ${item.id}`, error);
-                                });
-                        });
-                        this.$router.push({ path: "/pesanansukses" });
-                        this.$toast.success("Berhasil Masuk Keranjang", {
-                            position: 'top-right',
-                            duration: 3000,
-                            dismissible: true,
-                        });
-                    })
-                    .catch(error => console.error(error));
+                try {
+                    // Mengirim pesanan ke server
+                    await axios.post("http://localhost:3000/pesanans", this.pesan);
+
+                    // Menghapus item-item di keranjang secara paralel
+                    await Promise.all(
+                        this.keranjangs.map(async (item) => {
+                            try {
+                                // Menghapus setiap item berdasarkan id-nya
+                                await axios.delete(`http://localhost:3000/keranjangs/${item.id}`);
+                                console.log(`Item dengan id: ${item.id} berhasil dihapus`);
+                            } catch (error) {
+                                console.error(`Error menghapus item dengan id: ${item.id}`, error);
+                            }
+                        })
+                    );
+
+                    // Redirect ke halaman sukses setelah semua item dihapus
+                    this.$router.push({ path: "/pesanansukses" });
+
+                    // Menampilkan toast sukses
+                    this.$toast.success("Berhasil Masuk Keranjang", {
+                        position: 'top-right',
+                        duration: 3000,
+                        dismissible: true,
+                    });
+                } catch (error) {
+                    console.error("Terjadi kesalahan saat memproses pesanan:", error);
+                }
             } else {
+                // Jika nama atau nomor meja tidak diisi, tampilkan pesan error
                 this.$toast.error("Nama dan No Meja harus diisi", {
                     position: 'top-right',
                     duration: 3000,

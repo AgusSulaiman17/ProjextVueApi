@@ -45,8 +45,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.heroimg {
-    width: 500px;
-}
+<style>
 </style>
